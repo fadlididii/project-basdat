@@ -1,3 +1,4 @@
+
 @extends('hrd.layouts.app')
 
 @section('title', 'Manajemen Karyawan')
