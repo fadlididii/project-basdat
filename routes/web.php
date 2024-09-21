@@ -24,3 +24,8 @@ Route::get('/hrd/dashboard', function () {
 Route::get('/karyawan/dashboard', function () {
     return view('karyawan.dashboard'); //
 })->name('karyawan.dashboard');
+
+// Route untuk dashboard Karyawan
+Route::get('/karyawan/coba', function () {
+    return view('karyawan.absensi'); //
+})->name('karyawan.absensi');
