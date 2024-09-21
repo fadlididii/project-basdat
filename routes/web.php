@@ -43,3 +43,7 @@ Route::get('/hrd/penilaian-kinerja', function () {
 Route::get('/hrd/manajemen-karyawan', function () {
     return view('hrd.manajemen_karyawan');
 })->name('hrd.manajemen_karyawan');
+
+Route::get('/hrd/absensi', function () {
+    return view('hrd.absensi');
+})->name('hrd.absensi');
