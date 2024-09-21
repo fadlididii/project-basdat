@@ -19,7 +19,7 @@
 
     <!-- Nav Item - Manajemen Karyawan -->
     <li class="nav-item">
-        <a class="nav-link" href=""> 
+        <a class="nav-link" href="{{ route('hrd.manajemen_karyawan') }}"> 
             <i class="fas fa-fw fa-users-cog"></i>
             <span>Manajemen Karyawan</span></a>
     </li>
