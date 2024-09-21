@@ -1,47 +1,54 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+        <div class="sidebar-brand-icon">
+            <i class="fas fa-user-tie"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Dashboard HRD</div>
     </a>
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Dashboard -->
+    <!-- Nav Item - Profil -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Profil</span></a>
     </li>
 
-    <!-- Nav Item - Absensi -->
+    <!-- Nav Item - Manajemen Karyawan -->
     <li class="nav-item">
         <a class="nav-link" href=""> 
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Absensi</span></a>
+            <i class="fas fa-fw fa-users-cog"></i>
+            <span>Manajemen Karyawan</span></a>
+    </li>
+
+    <!-- Nav Item - Absensi Karyawan -->
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-calendar-check"></i>
+            <span>Absensi Karyawan</span></a>
     </li>
 
     <!-- Nav Item - Pengajuan Cuti -->
-    <li class="nav-item">
+        <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-file-alt"></i>
             <span>Pengajuan Cuti</span></a>
     </li>
 
-    <!-- Nav Item - Informasi Gaji -->
-        <li class="nav-item">
+    <!-- Nav Item - Penggajian Karyawan -->
+    <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Informasi Gaji</span></a>
+            <i class="fas fa-fw fa-money-bill-wave"></i>
+            <span>Penggajian Karyawan</span></a>
     </li>
 
     <!-- Nav Item - Penilaian Kinerja -->
-    <li class="nav-item">
+        <li class="nav-item">
         <a class="nav-link" href="">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-chart-line"></i>
             <span>Penilaian Kinerja</span></a>
     </li>
     
