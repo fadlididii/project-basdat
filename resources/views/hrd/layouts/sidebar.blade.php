@@ -26,7 +26,7 @@
 
     <!-- Nav Item - Absensi Karyawan -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('hrd.absensi') }}">
             <i class="fas fa-fw fa-calendar-check"></i>
             <span>Absensi Karyawan</span></a>
     </li>

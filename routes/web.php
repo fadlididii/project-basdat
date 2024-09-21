@@ -40,9 +40,15 @@ Route::get('/hrd/penilaian-kinerja', function () {
     return view('hrd.penilaian_kinerja');
 })->name('hrd.penilaian_kinerja');
 
+// Route untuk halaman manajemen karyawan
 Route::get('/hrd/manajemen-karyawan', function () {
     return view('hrd.manajemen_karyawan');
 })->name('hrd.manajemen_karyawan');
+
+// Route untuk halaman hrd absensi
+Route::get('/hrd/absensi', function () {
+    return view('hrd.absensi');
+})->name('hrd.absensi');
 
 // Route untuk halaman profil karyawan
 Route::get('/karyawan/profil', function () {
@@ -63,3 +69,4 @@ Route::get('/karyawan/gaji', function () {
 Route::get('/karyawan/nilai', function () {
     return view('karyawan.penilaian');
 })->name('karyawan.penilaian');
+
