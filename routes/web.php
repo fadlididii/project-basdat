@@ -29,3 +29,13 @@ Route::get('/karyawan/dashboard', function () {
 Route::get('/karyawan/coba', function () {
     return view('karyawan.absensi'); //
 })->name('karyawan.absensi');
+
+// Route untuk halaman penggajian karyawan
+Route::get('/hrd/penggajian', function () {
+    return view('hrd.penggajian');
+})->name('hrd.penggajian');
+
+// Route untuk halaman penilaian kinerja
+Route::get('/hrd/penilaian-kinerja', function () {
+    return view('hrd.penilaian_kinerja');
+})->name('hrd.penilaian_kinerja');

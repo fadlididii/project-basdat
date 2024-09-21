@@ -40,14 +40,14 @@
 
     <!-- Nav Item - Penggajian Karyawan -->
     <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('hrd.penggajian') }}">
             <i class="fas fa-fw fa-money-bill-wave"></i>
             <span>Penggajian Karyawan</span></a>
     </li>
 
     <!-- Nav Item - Penilaian Kinerja -->
         <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('hrd.penilaian_kinerja') }}">
             <i class="fas fa-fw fa-chart-line"></i>
             <span>Penilaian Kinerja</span></a>
     </li>
