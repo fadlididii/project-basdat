@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('hrd.layouts.app')
 
 @section('title', 'Dashboard')
 

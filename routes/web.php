@@ -6,17 +6,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// REGISTER PAGE
 Route::get('/register', function () {
-    return view('register');
-});
+    return view('auth.register');
+})->name('register');
 
 // LOGIN PAGE
 Route::get('/login', function () {
-    return view('login');
-});
+    return view('auth.login');
+})->name('login');
 
-// DASHBOARD PAGE
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route untuk dashboard HRD
+Route::get('/hrd/dashboard', function () {
+    return view('hrd.dashboard');
+})->name('hrd.dashboard');
+
+// Route untuk dashboard Karyawan
+Route::get('/karyawan/dashboard', function () {
+    return view('karyawan.dashboard'); //
+})->name('karyawan.dashboard');

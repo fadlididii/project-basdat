@@ -28,7 +28,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        @include('layouts.sidebar')
+        @include('hrd.layouts.sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -38,7 +38,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                @include('layouts.navbar')
+                @include('hrd.layouts.navbar')
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -57,7 +57,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('layouts.footer')
+            @include('hrd.layouts.footer')
             <!-- End of Footer -->
 
         </div>
