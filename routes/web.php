@@ -26,7 +26,7 @@ Route::get('/karyawan/dashboard', function () {
 })->name('karyawan.dashboard');
 
 // Route untuk dashboard Karyawan
-Route::get('/karyawan/coba', function () {
+Route::get('/karyawan/absensi', function () {
     return view('karyawan.absensi'); //
 })->name('karyawan.absensi');
 
@@ -40,10 +40,33 @@ Route::get('/hrd/penilaian-kinerja', function () {
     return view('hrd.penilaian_kinerja');
 })->name('hrd.penilaian_kinerja');
 
+// Route untuk halaman manajemen karyawan
 Route::get('/hrd/manajemen-karyawan', function () {
     return view('hrd.manajemen_karyawan');
 })->name('hrd.manajemen_karyawan');
 
+// Route untuk halaman hrd absensi
 Route::get('/hrd/absensi', function () {
     return view('hrd.absensi');
 })->name('hrd.absensi');
+
+// Route untuk halaman profil karyawan
+Route::get('/karyawan/profil', function () {
+    return view('karyawan.profil');
+})->name('karyawan.profil');
+
+// Route untuk halaman karyawan pengajuan cuti
+Route::get('/karyawan/pengajuan-cuti', function () {
+    return view('karyawan.pengajuan-cuti');
+})->name('karyawan.pengajuan-cuti');
+
+// Route untuk halaman karyawan pengajuan cuti
+Route::get('/karyawan/gaji', function () {
+    return view('karyawan.gaji');
+})->name('karyawan.gaji');
+
+// Route untuk halaman karyawan pengajuan cuti
+Route::get('/karyawan/nilai', function () {
+    return view('karyawan.penilaian');
+})->name('karyawan.penilaian');
+
