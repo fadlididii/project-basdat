@@ -12,6 +12,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th>ID Cuti</th>
+                        <th>ID Karyawan</th> <!-- Tambahkan kolom ID Karyawan -->
                         <th>Nama Karyawan</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
@@ -22,18 +23,19 @@
                 </thead>
                 <tbody>
                     @php
-                        // Data dummy dipindahkan ke dalam view ini
+                        // Data dummy diperbarui dengan ID Karyawan
                         $dummyData = [
-                            ['id' => 1, 'name' => 'John Doe', 'start' => '2024-09-25', 'end' => '2024-09-27', 'reason' => 'Liburan keluarga', 'status' => 'Menunggu'],
-                            ['id' => 2, 'name' => 'Jane Smith', 'start' => '2024-10-01', 'end' => '2024-10-03', 'reason' => 'Urusan pribadi', 'status' => 'Menunggu'],
-                            ['id' => 3, 'name' => 'Bob Johnson', 'start' => '2024-09-30', 'end' => '2024-10-02', 'reason' => 'Sakit', 'status' => 'Menunggu'],
-                            ['id' => 4, 'name' => 'Alice Brown', 'start' => '2024-10-05', 'end' => '2024-10-07', 'reason' => 'Seminar', 'status' => 'Menunggu'],
+                            ['id' => 1, 'employee_id' => 'EMP001', 'name' => 'John Doe', 'start' => '2024-09-25', 'end' => '2024-09-27', 'reason' => 'Liburan keluarga', 'status' => 'Menunggu'],
+                            ['id' => 2, 'employee_id' => 'EMP002', 'name' => 'Jane Smith', 'start' => '2024-10-01', 'end' => '2024-10-03', 'reason' => 'Urusan pribadi', 'status' => 'Menunggu'],
+                            ['id' => 3, 'employee_id' => 'EMP003', 'name' => 'Bob Johnson', 'start' => '2024-09-30', 'end' => '2024-10-02', 'reason' => 'Sakit', 'status' => 'Menunggu'],
+                            ['id' => 4, 'employee_id' => 'EMP004', 'name' => 'Alice Brown', 'start' => '2024-10-05', 'end' => '2024-10-07', 'reason' => 'Seminar', 'status' => 'Menunggu'],
                         ];
                     @endphp
 
                     @foreach($dummyData as $cuti)
                         <tr>
                             <td>{{ $cuti['id'] }}</td>
+                            <td>{{ $cuti['employee_id'] }}</td> <!-- Tampilkan ID Karyawan -->
                             <td>{{ $cuti['name'] }}</td>
                             <td>{{ $cuti['start'] }}</td>
                             <td>{{ $cuti['end'] }}</td>
