@@ -4,7 +4,7 @@
 
 @section('contents')
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-center font-weight-bold">Form Penilaian Karyawan </h1>
+    <h1 class="text-center my-4">Form Penilaian Karyawan </h1>
 
     <p>Berikut adalah penilaian kinerja untuk karyawan:</p>
 

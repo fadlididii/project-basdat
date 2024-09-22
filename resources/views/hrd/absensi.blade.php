@@ -9,7 +9,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Absensi Karyawan</h1>
+                        <h1 class="text-center my-4">Absensi Karyawan</h1>
                         <div class="d-flex">
                             <input type="text" id="searchInput" class="form-control form-control-sm me-2" placeholder="Cari Karyawan...">
                             <select id="filterStatus" class="form-select form-select-sm">

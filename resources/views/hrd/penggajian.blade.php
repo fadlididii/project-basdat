@@ -4,7 +4,7 @@
 
 @section('contents')
 <div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Penggajian Karyawan</h1>
+    <h1 class="text-center my-4">Penggajian Karyawan</h1>
 
     <!-- Tabel Penggajian Karyawan -->
     <div class="card shadow mb-4">

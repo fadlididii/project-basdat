@@ -4,7 +4,7 @@
 
 @section('contents')
 <div class="container py-4">
-    <h1 class="text-center mb-4">Persetujuan Pengajuan Cuti</h1>
+    <h1 class="text-center my-4">Persetujuan Pengajuan Cuti</h1>
 
     <div class="card shadow-sm rounded">
         <div class="card-body">
