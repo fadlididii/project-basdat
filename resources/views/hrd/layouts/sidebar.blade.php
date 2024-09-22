@@ -12,7 +12,7 @@
 
     <!-- Nav Item - Profil -->
     <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('hrd.profil') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>Profil</span></a>
     </li>

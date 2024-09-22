@@ -20,10 +20,6 @@
             <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" readonly>
         </div>
         <div class="form-group">
-            <label>Departemen</label>
-            <input type="text" class="form-control" name="departemen" required>
-        </div>
-        <div class="form-group">
             <label>Posisi</label>
             <input type="text" class="form-control" name="posisi" required>
         </div>
@@ -77,18 +73,15 @@
                 <li>Sakit: <input type="number" name="sakit" min="0" class="form-control d-inline-block w-auto" required></li>
             </ul>
         </div>
+
         <div class="form-group">
-            <label>Keterlambatan:</label>
-            <input type="number" name="keterlambatan" min="0" class="form-control w-auto" required>
-        </div>
-        <div class="form-group">
-            <label>Pulang Awal:</label>
-            <input type="number" name="pulang_awal" min="0" class="form-control w-auto" required>
+            <label>Komentar</label>
+            <textarea class="form-control" name="komentar_hard" rows="3" placeholder="Masukkan komentar atau catatan tentang karyawan..."></textarea>
         </div>
 
-        <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary">Simpan Penilaian</button>
-        </div>
+        <div class="text-center mt-4 mb-5">
+    <button type="submit" class="btn btn-primary">Simpan Penilaian</button>
+</div>
     </form>
 </div>
 @endsection

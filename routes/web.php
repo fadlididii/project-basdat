@@ -70,3 +70,7 @@ Route::get('/karyawan/nilai', function () {
     return view('karyawan.penilaian');
 })->name('karyawan.penilaian');
 
+// Route untuk halaman profil karyawan
+Route::get('/hrd/profil', function () {
+    return view('hrd.profil');
+})->name('hrd.profil');

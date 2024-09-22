@@ -20,6 +20,14 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin_assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
+    <style>
+        .bg-register-image {
+            background: url('{{ asset('admin_assets/img/company-pict.jpg') }}'); 
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+
 </head>
 
 <body class="bg-gradient-primary">
@@ -66,11 +74,11 @@
                                 </a>
                             </form>
                             <hr>
-                            <div class="text-center">
+                            <!-- <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
+                            </div> -->
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>
