@@ -33,7 +33,7 @@
 
     <!-- Nav Item - Pengajuan Cuti -->
         <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('hrd.persetujuan-cuti') }}">
             <i class="fas fa-fw fa-file-alt"></i>
             <span>Pengajuan Cuti</span></a>
     </li>
