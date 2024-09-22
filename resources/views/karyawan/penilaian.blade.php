@@ -23,60 +23,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- Contoh data yang sudah dinilai oleh HRD --}}
-                            <tr>
-                                <td>1</td>
-                                <td>Kedisiplinan</td>
-                                <td><input type="checkbox" checked disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Inisiatif</td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" checked disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Kualitas Kerja</td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" checked disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Motivasi</td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" checked disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>Tanggung Jawab</td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" disabled></td>
-                                <td><input type="checkbox" checked disabled></td>
-                            </tr>
-                            {{-- Tambahkan aspek penilaian lain di sini --}}
+                            {{-- Looping melalui aspek penilaian --}}
+                            @php
+                                $aspek_penilaian = [
+                                    'Kedisiplinan', 'Inisiatif', 'Kualitas Kerja', 'Motivasi', 
+                                    'Tanggung Jawab', 'Penyesuaian Diri', 'Kepemimpinan', 
+                                    'Pemecahan Masalah', 'Pengambilan Keputusan', 'Kerja Sama'
+                                ];
+                            @endphp
+                            @foreach ($aspek_penilaian as $index => $aspek)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $aspek }}</td>
+                                    <td><input type="checkbox" disabled></td>
+                                    <td><input type="checkbox" disabled></td>
+                                    <td><input type="checkbox" disabled></td>
+                                    <td><input type="checkbox" disabled></td>
+                                    <td><input type="checkbox" disabled></td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
 
+                    {{-- Bagian untuk komentar --}}
                     <div class="form-group mt-4">
                         <label for="komentar" class="font-weight-bold">Komentar:</label>
-                        <p class="form-control-static">Penilaian telah dilakukan berdasarkan kriteria yang ada, hasil menunjukkan performa cukup baik, tetapi ada beberapa area yang memerlukan perbaikan.</p>
+                        <p class="form-control-static">Penilaian telah dilakukan berdasarkan kriteria yang ada. Beberapa aspek menunjukkan performa baik, namun ada ruang untuk perbaikan.</p>
                     </div>
+
+                    {{-- Bagian Rekap Absensi --}}
+                    <h5 class="mt-4">Rekapan Absensi :</h5>
+                    <ul>
+                        <li>Alpha: <span>2 hari</span></li>
+                        <li>Izin: <span>1 hari</span></li>
+                        <li>Sakit: <span>3 hari</span></li>
+                    </ul>
 
                     <div class="text-center mt-4">
                         <a href="#" class="btn btn-primary">Download Laporan Penilaian</a> {{-- Tombol untuk download laporan --}}
