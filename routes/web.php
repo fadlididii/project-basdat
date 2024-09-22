@@ -40,6 +40,11 @@ Route::get('/hrd/penilaian-kinerja', function () {
     return view('hrd.penilaian_kinerja');
 })->name('hrd.penilaian_kinerja');
 
+
+Route::get('/hrd/persetujuan-cuti', function () {
+    return view('hrd.persetujuan-cuti');
+})->name('hrd.persetujuan-cuti');
+
 // Route untuk halaman manajemen karyawan
 Route::get('/hrd/manajemen-karyawan', function () {
     return view('hrd.manajemen_karyawan');
