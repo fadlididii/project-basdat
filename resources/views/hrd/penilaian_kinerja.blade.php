@@ -35,11 +35,11 @@
                     <th colspan="5" style="text-align: center;">Nilai</th>
                 </tr>
                 <tr>
+                    <th style="text-align: center;">SK</th>
+                    <th style="text-align: center;">K</th>
+                    <th style="text-align: center;">C</th>
                     <th style="text-align: center;">B</th>
                     <th style="text-align: center;">SB</th>
-                    <th style="text-align: center;">C</th>
-                    <th style="text-align: center;">K</th>
-                    <th style="text-align: center;">SK</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +62,7 @@
                 @endforeach
             </tbody>
         </table>
-        <small class="form-text text-muted">Keterangan: (1 = sangat buruk, 2 = buruk, 3 = cukup, 4 = baik, 5 = sangat baik)</small>
+        <small class="form-text text-muted">Keterangan: (1 = sangat kurang, 2 = kurang, 3 = cukup, 4 = baik, 5 = sangat baik)</small>
 
         <h5 class="mt-4">II. Catatan Absensi :</h5>
         <div class="form-group">

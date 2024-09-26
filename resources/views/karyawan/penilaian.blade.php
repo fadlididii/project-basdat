@@ -15,11 +15,11 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Aspek Penilaian</th>
+                                <th scope="col">SK</th>
+                                <th scope="col">K</th>
+                                <th scope="col">C</th>
                                 <th scope="col">B</th>
                                 <th scope="col">SB</th>
-                                <th scope="col">C</th>
-                                <th scope="col">K</th>
-                                <th scope="col">SK</th>
                             </tr>
                         </thead>
                         <tbody>
