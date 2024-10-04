@@ -1,9 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\ManajemenKaryawanController;
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/absensi', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
+});
+
+Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('beranda.beranda');
 });
 
 Route::get('/register', function () {
@@ -75,18 +85,6 @@ Route::get('/hrd/profil', function () {
     return view('hrd.profil');
 })->name('hrd.profil');
 
-use App\Http\Controllers\AbsensiController;
-
-Route::middleware('auth')->group(function () {
-    Route::get('/absensi', [AbsensiController::class, 'create'])->name('absensi.create');
-    Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
-});
-
-
-
-use App\Http\Controllers\ManajemenKaryawanController;
-
-Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
 
 
 

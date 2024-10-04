@@ -18,11 +18,11 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('admin_assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('admin_assets/css/sb-admin-2.css')}}" rel="stylesheet">
 
     <style>
         .bg-register-image {
-            background: url('{{ asset('admin_assets/img/company-pict.jpg') }}'); 
+            background: url('{{ asset('beranda_assets/images/sodaqo_m.jpg') }}'); 
             background-position: center;
             background-size: cover;
         }
