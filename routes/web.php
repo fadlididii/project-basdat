@@ -45,11 +45,6 @@ Route::get('/hrd/persetujuan-cuti', function () {
     return view('hrd.persetujuan-cuti');
 })->name('hrd.persetujuan-cuti');
 
-// Route untuk halaman manajemen karyawan
-Route::get('/hrd/manajemen-karyawan', function () {
-    return view('hrd.manajemen_karyawan');
-})->name('hrd.manajemen_karyawan');
-
 // Route untuk halaman hrd absensi
 Route::get('/hrd/absensi', function () {
     return view('hrd.absensi');
@@ -79,3 +74,20 @@ Route::get('/karyawan/nilai', function () {
 Route::get('/hrd/profil', function () {
     return view('hrd.profil');
 })->name('hrd.profil');
+
+use App\Http\Controllers\AbsensiController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/absensi', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
+});
+
+
+
+use App\Http\Controllers\ManajemenKaryawanController;
+
+Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
+
+
+
+
