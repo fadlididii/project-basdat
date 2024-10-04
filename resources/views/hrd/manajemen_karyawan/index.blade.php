@@ -24,6 +24,9 @@
                         <th>Alamat</th>
                         <th>Nomor Telepon</th>
                         <th>Role</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Username</th>
+                        <th>Password</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -35,6 +38,9 @@
                             <td>{{ $karyawan->alamat }}</td>
                             <td>{{ $karyawan->telepon }}</td>
                             <td>{{ $karyawan->role }}</td>
+                            <td>{{ $karyawan->tanggal_lahir }}</td>
+                            <td>{{ $karyawan->username }}</td>
+                            <td>{{ $karyawan->password }}</td>
                             <td>
                                 <a href="{{ route('manajemenkaryawan.edit', $karyawan->id) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('manajemenkaryawan.destroy', $karyawan->id) }}" method="POST" style="display:inline-block;">
