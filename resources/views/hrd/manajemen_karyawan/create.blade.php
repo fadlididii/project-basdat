@@ -39,8 +39,36 @@
 
         <div class="mb-3">
             <label for="role" class="form-label">Role</label>
-            <input type="text" class="form-control" id="role" name="role" value="{{ old('role') }}" required>
+            <select class="form-select select2" id="role" name="role" required>
+                <option value="" disabled selected>Pilih Role</option>
+                <option value="HRD" {{ old('role') == 'HRD' ? 'selected' : '' }}>HRD</option>
+                <option value="Karyawan" {{ old('role') == 'Karyawan' ? 'selected' : '' }}>Karyawan</option>
+            </select>
             @error('role')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" required>
+            @error('tanggal_lahir')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ old('username') }}" required>
+            @error('username')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+            @error('password')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
@@ -49,4 +77,13 @@
         <a href="{{ route('manajemenkaryawan.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Pilih Role",
+            allowClear: true
+        });
+    });
+</script>
 @endsection

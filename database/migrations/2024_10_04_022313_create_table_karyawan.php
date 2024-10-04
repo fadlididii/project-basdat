@@ -17,7 +17,10 @@ return new class extends Migration
             $table->string('nama'); // Nama Karyawan
             $table->text('alamat'); // Alamat Karyawan
             $table->string('telepon'); // Nomor Telepon Karyawan
-            $table->timestamps(); // Kolom created_at dan updated_at otomatis
+            $table->timestamps();
+            $table->date('tanggal_lahir');
+            $table->string('password'); // Password Karyawan
+            $table->string('username');// Kolom created_at dan updated_at otomatis
         });
     }
 

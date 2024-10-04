@@ -10,9 +10,15 @@ class ManajemenKaryawan extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'role',
         'nama',
         'alamat',
         'telepon',
-        'role',
+        'username',
+        'password',
+        'tanggal_lahir',
     ];
+
+    // If you want to hide the password when retrieving the model
+    protected $hidden = ['password'];
 }
