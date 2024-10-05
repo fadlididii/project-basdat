@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'karyawan' => [
+            'driver' => 'session',
+            'provider' => 'karyawans',
+        ],
+        'hrd' => [
+            'driver' => 'session',
+            'provider' => 'karyawans', 
+        ],
     ],
 
     /*
@@ -65,6 +73,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
+        'karyawans' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ManajemenKaryawan::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

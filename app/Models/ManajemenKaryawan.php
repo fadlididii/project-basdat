@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class ManajemenKaryawan extends Model
+class ManajemenKaryawan extends Authenticatable
 {
     protected $table = 'karyawan';
     public $timestamps = true;
@@ -19,6 +19,7 @@ class ManajemenKaryawan extends Model
         'tanggal_lahir',
     ];
 
-    // If you want to hide the password when retrieving the model
-    protected $hidden = ['password'];
+    protected $hidden = [
+        'password',
+    ];
 }
