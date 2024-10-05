@@ -7,9 +7,6 @@ use App\Http\Controllers\KaryawanAuthController;
 use App\Http\Controllers\KaryawanDashboardController;
 use App\Http\Controllers\HRDDashboardController;
 
-// Route untuk manajemen karyawan
-Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
-
 // Route untuk beranda
 Route::get('/', function () {
     return view('beranda.beranda');
@@ -34,12 +31,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('karyawan.dashboard');
     })->name('karyawan.dashboard');
 
-    Route::get('/karyawan/absensi', function () {
-        if (auth()->user()->role != 'Karyawan') {
-            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
-        }
-        return view('karyawan.absensi');
-    })->name('karyawan.absensi');
+    Route::get('/karyawan/absensi', [AbsensiController::class, 'showAbsensiForm'])->name('karyawan.absensi');
+    Route::post('/karyawan/absensi', [AbsensiController::class, 'storeAbsensi'])->name('karyawan.absensi.store');
 
     Route::get('/karyawan/profil', function () {
         if (auth()->user()->role != 'Karyawan') {
@@ -70,7 +63,6 @@ Route::middleware(['auth:karyawan'])->group(function () {
     })->name('karyawan.penilaian');
 });
 
-
 // Route untuk HRD
 Route::middleware(['auth:karyawan'])->group(function () {
     Route::get('hrd/dashboard', function () {
@@ -80,12 +72,7 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('hrd.dashboard');
     })->name('hrd.dashboard');
 
-    Route::get('/hrd/absensi', function () {
-        if (auth()->user()->role != 'HRD') {
-            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
-        }
-        return view('hrd.absensi');
-    })->name('hrd.absensi');
+    Route::get('/hrd/absensi', [AbsensiController::class, 'indexHRD'])->name('hrd.absensi');
 
     Route::get('/hrd/persetujuan-cuti', function () {
         if (auth()->user()->role != 'HRD') {
