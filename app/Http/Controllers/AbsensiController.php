@@ -4,47 +4,73 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Absensi;
-use App\Models\ManajemenKaryawan; // Pastikan model yang dipakai adalah ManajemenKaryawan
-use Auth;
+use App\Models\ManajemenKaryawan;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
-    // Tampilkan halaman absensi
-    public function showAbsensiForm()
-    {
-        return view('karyawan.absensi');
-    }
-
-    // Simpan data absensi
-    public function storeAbsensi(Request $request)
+    // Menyimpan absensi jam masuk
+    public function storeJamMasuk(Request $request)
     {
         $request->validate([
-            'jam_masuk' => 'required',
+            'jam_masuk' => 'required|date_format:H:i',
             'tanggal_absensi' => 'required|date',
             'status_absensi' => 'required',
         ]);
-    
-        // Ambil data karyawan yang sedang login
-        $karyawan = Auth::user(); // Mengambil data karyawan dari user yang login
-    
+
+        // Cek apakah sudah ada absen untuk tanggal tersebut
+        $existingAbsensi = Absensi::where('id_karyawan', Auth::id())
+                                  ->where('tanggal_absensi', $request->tanggal_absensi)
+                                  ->first();
+
+        if ($existingAbsensi) {
+            return redirect()->back()->with('error', 'Anda sudah mengisi absensi jam masuk untuk hari ini.');
+        }
+
+        // Ambil data karyawan
+        $karyawan = ManajemenKaryawan::find(Auth::id());
+
         Absensi::create([
-            'id_karyawan' => $karyawan->id, // ID Karyawan diambil dari user yang login
-            'nama_karyawan' => $karyawan->nama, // Mengambil nama dari data karyawan yang login
+            'id_karyawan' => Auth::user()->id,
+            'nama_karyawan' => $karyawan->nama,
             'jam_masuk' => $request->jam_masuk,
-            'jam_keluar' => null, //
-            'status_absensi' => $request->status_absensi, 
+            'jam_keluar' => null, // Jam keluar belum diisi
+            'status_absensi' => $request->status_absensi,
             'tanggal_absensi' => $request->tanggal_absensi,
         ]);
-    
-        return redirect()->back()->with('success', 'Absensi berhasil disimpan!');
-    }
-    
 
-    public function indexHRD()
+        return redirect()->back()->with('success', 'Absensi jam masuk berhasil disimpan!');
+    }
+
+    // Menyimpan absensi jam keluar
+    public function storeJamKeluar(Request $request)
     {
-        // Mengambil absensi dengan relasi ke tabel karyawan melalui model ManajemenKaryawan
-        $absensi = Absensi::with('karyawan')->get();
+        $request->validate([
+            'jam_keluar' => 'required|date_format:H:i',
+        ]);
 
-        return view('hrd.absensi.index', compact('absensi'));
+        // Cari data absensi hari ini
+        $absensi = Absensi::where('id_karyawan', Auth::id())
+                        ->where('tanggal_absensi', date('Y-m-d'))
+                        ->first();
+
+        // Pastikan absensi ditemukan
+        if (!$absensi) {
+            return redirect()->back()->with('error', 'Anda belum absen jam masuk hari ini.');
+        }
+
+        // Cek jika absensi sudah memiliki jam keluar
+        if ($absensi->jam_keluar) {
+            return redirect()->back()->with('error', 'Anda sudah mengisi absensi jam keluar.');
+        }
+
+        // Update jam keluar
+        $absensi->update([
+            'jam_keluar' => $request->jam_keluar,
+        ]);
+
+        return redirect()->back()->with('success', 'Absensi jam keluar berhasil disimpan!');
     }
+
 }
+

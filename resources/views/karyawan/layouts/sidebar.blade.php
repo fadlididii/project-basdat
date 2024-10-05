@@ -18,11 +18,19 @@
         </a>
     </li>
 
-    <!-- Nav Item - Absensi -->
+    <!-- Nav Item - Absensi Jam Masuk -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('karyawan.absensi') }}">
+        <a class="nav-link" href="{{ route('karyawan.absensi_masuk') }}">
             <i class="fas fa-fw fa-calendar-check"></i>
-            <span>Absensi</span>
+            <span>Absen Jam Masuk</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Absensi Jam Keluar -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('karyawan.absensi_keluar') }}">
+            <i class="fas fa-fw fa-calendar-times"></i>
+            <span>Absen Jam Keluar</span>
         </a>
     </li>
 
@@ -49,7 +57,7 @@
             <span>Penilaian Kinerja</span>
         </a>
     </li>
-    
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

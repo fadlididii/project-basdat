@@ -31,8 +31,31 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('karyawan.dashboard');
     })->name('karyawan.dashboard');
 
-    Route::get('/karyawan/absensi', [AbsensiController::class, 'showAbsensiForm'])->name('karyawan.absensi');
-    Route::post('/karyawan/absensi', [AbsensiController::class, 'storeAbsensi'])->name('karyawan.absensi.store');
+    Route::get('/karyawan/absensi_masuk', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.absensi_masuk');
+    })->name('karyawan.absensi_masuk');
+
+    Route::get('/karyawan/absensi_keluar', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.absensi_keluar');
+    })->name('karyawan.absensi_keluar');
+
+    // Menampilkan form absensi untuk mencatat jam masuk
+    Route::get('/karyawan/absensi/masuk', [AbsensiController::class, 'showAbsensiMasukForm'])->name('karyawan.absensi.masuk');
+
+    // Menyimpan jam masuk karyawan
+    Route::post('/karyawan/absensi/masuk', [AbsensiController::class, 'storeJamMasuk'])->name('karyawan.absensi.storeJamMasuk');
+    
+    // Menampilkan form absensi untuk mencatat jam keluar
+    Route::get('/karyawan/absensi/keluar', [AbsensiController::class, 'showAbsensiKeluarForm'])->name('karyawan.absensi.keluar');
+    
+    // Menyimpan jam keluar karyawan
+    Route::post('/karyawan/absensi/keluar', [AbsensiController::class, 'storeJamKeluar'])->name('karyawan.absensi.storeJamKeluar');
 
     Route::get('/karyawan/profil', function () {
         if (auth()->user()->role != 'Karyawan') {
