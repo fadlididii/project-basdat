@@ -85,7 +85,12 @@ Route::get('/hrd/profil', function () {
     return view('hrd.profil');
 })->name('hrd.profil');
 
+// Route karyawan mengisi absensi
+Route::get('/karyawan/absensi', [AbsensiController::class, 'showAbsensiForm'])->name('karyawan.absensi');
+Route::post('/karyawan/absensi', [AbsensiController::class, 'storeAbsensi'])->name('karyawan.absensi.store');
 
+// Route HRD melihat absensi
+Route::get('/hrd/absensi', [AbsensiController::class, 'indexHRD'])->name('hrd.absensi');
 
 
 
