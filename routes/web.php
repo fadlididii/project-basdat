@@ -6,6 +6,8 @@ use App\Http\Controllers\ManajemenKaryawanController;
 use App\Http\Controllers\KaryawanAuthController;
 use App\Http\Controllers\KaryawanDashboardController;
 use App\Http\Controllers\HRDDashboardController;
+use App\Http\Controllers\HRDPenggajianController;
+
 
 // Route untuk beranda
 Route::get('/', function () {
@@ -78,6 +80,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('karyawan.gaji');
     })->name('karyawan.gaji');
 
+    Route::get('/karyawan/gaji', [HRDPenggajianController::class, 'showGaji'])->name('karyawan.gaji');
+
     Route::get('/karyawan/nilai', function () {
         if (auth()->user()->role != 'Karyawan') {
             return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
@@ -110,6 +114,9 @@ Route::middleware(['auth:karyawan'])->group(function () {
         }
         return view('hrd.penggajian');
     })->name('hrd.penggajian');
+
+    Route::get('/hrd/penggajian', [HRDPenggajianController::class, 'index'])->name('hrd.penggajian');
+    Route::post('/hrd/kirim-gaji', [HRDPenggajianController::class, 'kirimGaji'])->name('hrd.kirimGaji');
 
     Route::get('/hrd/penilaian-kinerja', function () {
         if (auth()->user()->role != 'HRD') {

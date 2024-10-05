@@ -97,5 +97,9 @@ class ManajemenKaryawanController extends Controller
         return redirect()->route('manajemenkaryawan.index')->with('success', 'Karyawan berhasil dihapus!');
     }
 
+    public function penggajian()
+    {
+        return $this->hasMany(Penggajian::class, 'id_karyawan');
+    }
 
 }

@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class AbsensiController extends Controller
 {
     // Menyimpan absensi jam masuk
-    public function storeJamMasuk(Request $request)
+    public function storeJamMasuk(Request $request) 
     {
         $request->validate([
             'jam_masuk' => 'required|date_format:H:i',
-            'tanggal_absensi' => 'required|date',
+            'tanggal_absensi' => 'required|date_format:Y-m-d', // pastikan formatnya Y-m-d
             'status_absensi' => 'required',
         ]);
 
@@ -23,6 +23,7 @@ class AbsensiController extends Controller
                                   ->where('tanggal_absensi', $request->tanggal_absensi)
                                   ->first();
 
+        // Jika sudah ada absensi hari ini
         if ($existingAbsensi) {
             return redirect()->back()->with('error', 'Anda sudah mengisi absensi jam masuk untuk hari ini.');
         }
@@ -30,6 +31,7 @@ class AbsensiController extends Controller
         // Ambil data karyawan
         $karyawan = ManajemenKaryawan::find(Auth::id());
 
+        // Simpan absensi jam masuk
         Absensi::create([
             'id_karyawan' => Auth::user()->id,
             'nama_karyawan' => $karyawan->nama,
@@ -49,12 +51,12 @@ class AbsensiController extends Controller
             'jam_keluar' => 'required|date_format:H:i',
         ]);
 
-        // Cari data absensi hari ini
+        // Cari data absensi hari ini berdasarkan id_karyawan dan tanggal_absensi
         $absensi = Absensi::where('id_karyawan', Auth::id())
-                        ->where('tanggal_absensi', date('Y-m-d'))
+                        ->where('tanggal_absensi', date('Y-m-d')) // Pastikan format Y-m-d
                         ->first();
 
-        // Pastikan absensi ditemukan
+        // Jika absensi tidak ditemukan (artinya belum absen jam masuk)
         if (!$absensi) {
             return redirect()->back()->with('error', 'Anda belum absen jam masuk hari ini.');
         }
@@ -72,5 +74,12 @@ class AbsensiController extends Controller
         return redirect()->back()->with('success', 'Absensi jam keluar berhasil disimpan!');
     }
 
-}
+    // Menampilkan daftar absensi untuk HRD
+    public function indexHRD()
+    {
+        // Mengambil semua data absensi beserta data karyawan terkait
+        $absensi = Absensi::with('karyawan')->get();
 
+        return view('hrd.absensi.index', compact('absensi'));
+    }
+}
