@@ -4,7 +4,8 @@
 <div class="container">
     <h2>Daftar Absensi Karyawan</h2>
 
-    <table class="table table-bordered">
+    <!-- Tabel Absensi -->
+    <table id="absensiTable" class="table table-bordered">
         <thead>
             <tr>
                 <th>Nama Karyawan</th>
@@ -17,7 +18,7 @@
         <tbody>
             @foreach($absensi as $item)
             <tr>
-                <td>{{ $item->karyawan->nama }}</td>
+                <td>{{ $item->nama_karyawan }}</td>
                 <td>{{ $item->jam_masuk }}</td>
                 <td>{{ $item->jam_keluar ?? 'Belum Keluar' }}</td>
                 <td>{{ $item->status_absensi }}</td>
@@ -27,4 +28,16 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#absensiTable').DataTable({
+            "paging": true,
+            "ordering": true,
+            "info": true,
+            "searching": true
+        });
+    });
+</script>
+
 @endsection

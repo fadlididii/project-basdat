@@ -13,6 +13,7 @@ class Absensi extends Model
 
     protected $fillable = [
         'id_karyawan',
+        'nama_karyawan',
         'jam_masuk',
         'jam_keluar',
         'status_absensi',
@@ -21,6 +22,6 @@ class Absensi extends Model
 
     public function karyawan()
     {
-        return $this->belongsTo(Karyawan::class, 'id_karyawan');
-    }
+        return $this->belongsTo(ManajemenKaryawan::class, 'id', 'id_karyawan');
+    }    
 }
