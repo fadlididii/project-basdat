@@ -13,7 +13,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <!-- Tabel Penggajian di Blade Template -->
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>ID Karyawan</th>
@@ -25,18 +26,53 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>101</td>
-                            <td>John Doe</td>
-                            <td>Rp 5.000.000</td>
-                            <td>Rp 500.000</td>
-                            <td>Rp 5.500.000</td>
-                            <td><button class="btn btn-primary btn-sm">Kirim Informasi Gaji</button></td>
-                        </tr>
+                        @foreach($dataPenggajian as $item)
+                            <tr>
+                                <td>{{ $item['id_karyawan'] }}</td>
+                                <td>{{ $item['nama'] }}</td>
+                                <td>Rp {{ number_format($item['gaji_pokok'], 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item['gaji_bonus'], 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($item['total_gaji'], 0, ',', '.') }}</td>
+                                <td>
+                                    <!-- Tombol Kirim Gaji -->
+                                    <form action="{{ route('hrd.kirimGaji') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id_karyawan" value="{{ $item['id_karyawan'] }}">
+                                        <button type="submit" class="btn btn-primary btn-sm">Kirim Informasi Gaji</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // AJAX untuk mengirim informasi gaji tanpa merubah URL
+        $('.kirim-gaji-btn').on('click', function() {
+            var id_penggajian = $(this).data('id');
+            var namaKaryawan = $(this).data('nama'); // Ambil nama karyawan dari atribut data-nama
+
+            $.ajax({
+                url: '{{ route('hrd.kirimGaji') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id_penggajian: id_penggajian
+                },
+                success: function(response) {
+                    alert('Informasi gaji sudah terkirim ke ' + namaKaryawan + '!');
+                },
+                error: function(xhr) {
+                    alert('Terjadi kesalahan saat mengirim informasi gaji.');
+                }
+            });
+        });
+    });
+</script>
 @endsection
