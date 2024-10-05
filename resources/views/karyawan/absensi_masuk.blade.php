@@ -2,7 +2,7 @@
 
 @section('contents')
 <div class="container">
-    <h2>Silahkan Mengisi Absensi</h2>
+    <h2>Absensi Jam Masuk</h2>
 
     @if(session('success'))
         <div class="alert alert-success">
@@ -10,16 +10,17 @@
         </div>
     @endif
 
-    <form action="{{ route('karyawan.absensi.store') }}" method="POST">
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <form action="{{ route('karyawan.absensi.storeJamMasuk') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="jam_masuk">Jam Masuk:</label>
             <input type="time" name="jam_masuk" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label for="jam_keluar">Jam Keluar:</label>
-            <input type="time" name="jam_keluar" class="form-control">
         </div>
 
         <div class="form-group">
@@ -37,7 +38,7 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit Absensi</button>
+        <button type="submit" class="btn btn-primary">Submit Absensi Jam Masuk</button>
     </form>
 </div>
 @endsection

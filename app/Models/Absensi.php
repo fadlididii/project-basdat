@@ -11,6 +11,10 @@ class Absensi extends Model
 
     protected $table = 'absensi';
 
+    protected $primaryKey = 'id_absensi'; // Ganti ini jika kolom primary key bukan 'id'
+    
+    public $incrementing = true; // Pastikan ini true jika menggunakan auto-increment
+
     protected $fillable = [
         'id_karyawan',
         'nama_karyawan',
