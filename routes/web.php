@@ -3,94 +3,112 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\ManajemenKaryawanController;
+use App\Http\Controllers\KaryawanAuthController;
+use App\Http\Controllers\KaryawanDashboardController;
+use App\Http\Controllers\HRDDashboardController;
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/absensi', [AbsensiController::class, 'create'])->name('absensi.create');
-    Route::post('/absensi', [AbsensiController::class, 'store'])->name('absensi.store');
-});
-
-Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
-
+// Route untuk beranda
 Route::get('/', function () {
     return view('beranda.beranda');
-});
+})->name('home');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-// LOGIN PAGE
+// Route untuk login
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-// Route untuk dashboard HRD
-Route::get('/hrd/dashboard', function () {
-    return view('hrd.dashboard');
-})->name('hrd.dashboard');
+// Route untuk login dan logout karyawan
+Route::get('karyawan/login', [KaryawanAuthController::class, 'showLoginForm'])->name('karyawan.login');
+Route::post('karyawan/login', [KaryawanAuthController::class, 'login'])->name('karyawan.login');
+Route::post('karyawan/logout', [KaryawanAuthController::class, 'logout'])->name('karyawan.logout');
 
-// Route untuk dashboard Karyawan
-Route::get('/karyawan/dashboard', function () {
-    return view('karyawan.dashboard'); //
-})->name('karyawan.dashboard');
+// Route untuk Karyawan
+Route::middleware(['auth:karyawan'])->group(function () {
+    Route::get('karyawan/dashboard', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.dashboard');
+    })->name('karyawan.dashboard');
 
-// Route untuk dashboard Karyawan
-Route::get('/karyawan/absensi', function () {
-    return view('karyawan.absensi'); //
-})->name('karyawan.absensi');
+    Route::get('/karyawan/absensi', [AbsensiController::class, 'showAbsensiForm'])->name('karyawan.absensi');
+    Route::post('/karyawan/absensi', [AbsensiController::class, 'storeAbsensi'])->name('karyawan.absensi.store');
 
-// Route untuk halaman penggajian karyawan
-Route::get('/hrd/penggajian', function () {
-    return view('hrd.penggajian');
-})->name('hrd.penggajian');
+    Route::get('/karyawan/profil', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.profil');
+    })->name('karyawan.profil');
 
-// Route untuk halaman penilaian kinerja
-Route::get('/hrd/penilaian-kinerja', function () {
-    return view('hrd.penilaian_kinerja');
-})->name('hrd.penilaian_kinerja');
+    Route::get('/karyawan/pengajuan-cuti', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.pengajuan-cuti');
+    })->name('karyawan.pengajuan-cuti');
 
+    Route::get('/karyawan/gaji', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.gaji');
+    })->name('karyawan.gaji');
 
-Route::get('/hrd/persetujuan-cuti', function () {
-    return view('hrd.persetujuan-cuti');
-})->name('hrd.persetujuan-cuti');
+    Route::get('/karyawan/nilai', function () {
+        if (auth()->user()->role != 'Karyawan') {
+            return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
+        }
+        return view('karyawan.penilaian');
+    })->name('karyawan.penilaian');
+});
 
-// Route untuk halaman hrd absensi
-Route::get('/hrd/absensi', function () {
-    return view('hrd.absensi');
-})->name('hrd.absensi');
+// Route untuk HRD
+Route::middleware(['auth:karyawan'])->group(function () {
+    Route::get('hrd/dashboard', function () {
+        if (auth()->user()->role != 'HRD') {
+            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
+        }
+        return view('hrd.dashboard');
+    })->name('hrd.dashboard');
 
-// Route untuk halaman profil karyawan
-Route::get('/karyawan/profil', function () {
-    return view('karyawan.profil');
-})->name('karyawan.profil');
+    Route::get('/hrd/absensi', [AbsensiController::class, 'indexHRD'])->name('hrd.absensi');
 
-// Route untuk halaman karyawan pengajuan cuti
-Route::get('/karyawan/pengajuan-cuti', function () {
-    return view('karyawan.pengajuan-cuti');
-})->name('karyawan.pengajuan-cuti');
+    Route::get('/hrd/persetujuan-cuti', function () {
+        if (auth()->user()->role != 'HRD') {
+            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
+        }
+        return view('hrd.persetujuan-cuti');
+    })->name('hrd.persetujuan-cuti');
 
-// Route untuk halaman karyawan pengajuan cuti
-Route::get('/karyawan/gaji', function () {
-    return view('karyawan.gaji');
-})->name('karyawan.gaji');
+    Route::get('/hrd/penggajian', function () {
+        if (auth()->user()->role != 'HRD') {
+            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
+        }
+        return view('hrd.penggajian');
+    })->name('hrd.penggajian');
 
-// Route untuk halaman karyawan pengajuan cuti
-Route::get('/karyawan/nilai', function () {
-    return view('karyawan.penilaian');
-})->name('karyawan.penilaian');
+    Route::get('/hrd/penilaian-kinerja', function () {
+        if (auth()->user()->role != 'HRD') {
+            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
+        }
+        return view('hrd.penilaian_kinerja');
+    })->name('hrd.penilaian_kinerja');
 
-// Route untuk halaman profil karyawan
-Route::get('/hrd/profil', function () {
-    return view('hrd.profil');
-})->name('hrd.profil');
+    Route::get('/hrd/profil', function () {
+        if (auth()->user()->role != 'HRD') {
+            return redirect()->route('karyawan.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai HRD']);
+        }
+        return view('hrd.profil');
+    })->name('hrd.profil');
+});
 
-// Route karyawan mengisi absensi
-Route::get('/karyawan/absensi', [AbsensiController::class, 'showAbsensiForm'])->name('karyawan.absensi');
-Route::post('/karyawan/absensi', [AbsensiController::class, 'storeAbsensi'])->name('karyawan.absensi.store');
+// Route untuk manajemen karyawan
+Route::middleware(['auth:karyawan'])->group(function () {
+    Route::resource('manajemenkaryawan', ManajemenKaryawanController::class);
+});
 
-// Route HRD melihat absensi
-Route::get('/hrd/absensi', [AbsensiController::class, 'indexHRD'])->name('hrd.absensi');
-
-
-
+// Route default jika user mengakses URL yang tidak valid
+Route::fallback(function () {
+    return redirect()->route('login');
+});
