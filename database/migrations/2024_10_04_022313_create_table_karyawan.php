@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('karyawan', function (Blueprint $table) {
             $table->id(); // ID Karyawan (primary key, auto-increment)
-            $table->string('role'); // Role Karyawan
             $table->string('nama'); // Nama Karyawan
             $table->text('alamat'); // Alamat Karyawan
             $table->string('telepon'); // Nomor Telepon Karyawan
-            $table->timestamps();
+            $table->string('role'); // Role Karyawan
             $table->date('tanggal_lahir');
-            $table->string('password'); // Password Karyawan
             $table->string('username');// Kolom created_at dan updated_at otomatis
+            $table->string('password'); // Password Karyawan
+            $table->timestamps();
         });
     }
 

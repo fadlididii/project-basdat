@@ -48,12 +48,11 @@
 							<a href="#" class="logo m-0 float-start">Sodaqo Mart<span class="text-primary">.</span></a>
 						</div>
 						<div class="col-8 text-center ">
-							<ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
-								<li class="active"><a href="#">Home</a></li>
-								<li><a href="#about-us">About Us</a></li>
-								<li><a href="#testimonials">Testimonials</a></li>
-								<li><a href="#team">Team</a></li>
-							</ul>
+                            <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu mx-auto">
+                                <li class="active"><a href="#">Home</a></li>
+                                <li><a href="#about-us">About Us</a></li>
+                                <li><a href="#testimonials">Testimonials</a></li>
+                                <li><a href="#team">Team</a></li> 
 						</div>
 						<div class="col-2 text-end">
 							<!-- Tombol Login -->
@@ -88,7 +87,7 @@
 	</div>
 
 
-    <div class="section py-5" id="#about-us">
+    <div class="section py-5" id="about-us">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <!-- Bagian Gambar -->
@@ -117,8 +116,8 @@
                     <div class="feature d-flex">
                         <span class="bi-shop"></span>
                         <div>
-                            <h3>50+ Branches</h3>
-                            <p>Sodaqo Mart kini hadir di 50 lebih lokasi strategis di seluruh Indonesia.</p>
+                            <h3>40+ Branches</h3>
+                            <p>Sodaqo Mart kini hadir di 40 lebih lokasi strategis di seluruh Indonesia.</p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +147,7 @@
 
 </div>
 
-<div class="section sec-testimonial bg-light" id="#testimonials">
+<div class="section sec-testimonial bg-light" id="testimonials">
 	<div class="container">
 		<div class="row mb-5 justify-content-center">
 			<div class="col-lg-6 text-center">
@@ -220,17 +219,17 @@
 		<div class="row justify-content-between align-items-center">
 			<div class="col-lg-5" data-aos="fade-up" data-aos-delay="0">
 				<h2 class="heading">Wanna Talk To Us?</h2>
-				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+				<p>Hubungi kami dan berkontribusi dalam kebaikan bersama Sodaqo Mart.</p>
 			</div>
 			<div class="col-lg-5 text-end" data-aos="fade-up" data-aos-delay="100">
-				<a href="#" class="btn btn-outline-white-reverse">Contact us</a>
+				<a href="#" class="btn btn-outline-white-reverse" onclick="confirmWhatsApp()">Contact us</a>>
 			</div>
 		</div>
 	</div>
 </div>
 
 
-<div class="section sec-team" id="#team">
+<div class="section sec-team" id="team">
 	<div class="container">
 		<div class="row mb-5">
 			<div class="col-lg-7">
@@ -314,6 +313,14 @@
     	</div>
     </div>
 
+    <script>
+        function confirmWhatsApp() {
+            var result = confirm("Apakah Anda yakin ingin menghubungi kami melalui WhatsApp?");
+            if (result) {
+                window.location.href = "https://wa.me/6285892303290"; 
+            }
+        }
+    </script>
 
     <script src="{{ asset('beranda_assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('beranda_assets/js/tiny-slider.js') }}"></script>
