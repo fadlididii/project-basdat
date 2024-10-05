@@ -22,4 +22,9 @@ class ManajemenKaryawan extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+        public function absensis()
+    {
+        return $this->hasMany(Absensi::class, 'id');
+    }
 }
