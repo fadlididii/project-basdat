@@ -12,17 +12,17 @@ return new class extends Migration
     public function up()
     {
         Schema::create('absensi', function (Blueprint $table) {
-            $table->id('id_absensi');
+            $table->id();
             $table->unsignedBigInteger('id_karyawan');
-            $table->string('nama_karyawan')->nullable();
-            $table->time('jam_masuk')->nullable();
-            $table->time('jam_keluar')->nullable();
-            $table->enum('status_absensi', ['Hadir', 'Izin', 'Sakit', 'Alfa'])->nullable();
-            $table->date('tanggal_absensi');
+            $table->string('status_absensi');
+            $table->string('foto_absensi')->nullable(); // Foto jam masuk
+            $table->string('foto_keluar')->nullable(); // Foto jam keluar
+            $table->timestamp('jam_masuk')->nullable();
+            $table->timestamp('jam_keluar')->nullable();
             $table->timestamps();
-            // Relasi ke tabel karyawan
+        
             $table->foreign('id_karyawan')->references('id')->on('karyawan')->onDelete('cascade');
-        });
+        });        
     }
 
     /**

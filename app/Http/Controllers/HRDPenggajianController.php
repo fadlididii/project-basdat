@@ -16,7 +16,7 @@ class HRDPenggajianController extends Controller
         
         // Hitung gaji setiap karyawan
         $dataPenggajian = $karyawan->map(function ($karyawan) {
-            $gajiPokok = $karyawan->role == 'HRD' ? 6000000 : 5000000; // Gaji pokok sesuai dengan role
+            $gajiPokok = $karyawan->role == 'HRD' ? 8000000 : 5000000; // Gaji pokok sesuai dengan role
             $totalJamKerja = $this->hitungTotalJamKerja($karyawan->id);
             $gajiBonus = $this->hitungGajiBonus($totalJamKerja);
             $totalGaji = $gajiPokok + $gajiBonus;
@@ -40,32 +40,33 @@ class HRDPenggajianController extends Controller
     // Fungsi menghitung total jam kerja
     private function hitungTotalJamKerja($id_karyawan)
     {
+        // Menggunakan kolom created_at sebagai pengganti tanggal_absensi
         $absensi = Absensi::where('id_karyawan', $id_karyawan)
-                          ->whereMonth('tanggal_absensi', date('m'))
-                          ->whereYear('tanggal_absensi', date('Y'))
+                          ->whereMonth('created_at', date('m')) // Menggunakan created_at untuk bulan
+                          ->whereYear('created_at', date('Y'))  // Menggunakan created_at untuk tahun
                           ->whereNotNull('jam_keluar')
                           ->get();
         
         $totalJamKerja = 0;
         foreach ($absensi as $record) {
-            // Ambil timestamp dari created_at dan updated_at
+            // Menggunakan timestamp dari created_at dan updated_at
             $jamMasuk = new \DateTime($record->created_at);
             $jamKeluar = new \DateTime($record->updated_at);
-
+    
             // Hitung selisih waktu kerja
             $selisih = $jamKeluar->diff($jamMasuk);
-
+    
             // Tambahkan jam kerja ke total jam kerja
             $totalJamKerja += $selisih->h + ($selisih->i / 60);
         }
-
+    
         return $totalJamKerja;
     }
 
     // Fungsi menghitung gaji bonus
     private function hitungGajiBonus($totalJamKerja)
     {
-        $jamNormal = 240;
+        $jamNormal = 240; // Jumlah jam kerja normal dalam satu bulan (misalnya, 30 hari x 8 jam)
         $gajiPerJam = 50000; // Rp 50.000 per jam lembur
         if ($totalJamKerja > $jamNormal) {
             return ($totalJamKerja - $jamNormal) * $gajiPerJam;
