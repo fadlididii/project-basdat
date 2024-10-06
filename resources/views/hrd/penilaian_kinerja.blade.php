@@ -19,10 +19,6 @@
             <label>ID Karyawan</label>
             <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" readonly>
         </div>
-        <div class="form-group">
-            <label>Posisi</label>
-            <input type="text" class="form-control" name="posisi" required>
-        </div>
 
         <p>Dengan hasil penilaian kinerja sebagai berikut:</p>
 
