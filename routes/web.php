@@ -8,6 +8,7 @@ use App\Http\Controllers\KaryawanDashboardController;
 use App\Http\Controllers\HRDDashboardController;
 use App\Http\Controllers\HRDPenggajianController;
 use App\Http\Controllers\CutiController;
+use App\Http\Controllers\ProfilController;
 
 
 // Route untuk beranda
@@ -65,6 +66,9 @@ Route::middleware(['auth:karyawan'])->group(function () {
         }
         return view('karyawan.profil');
     })->name('karyawan.profil');
+
+    Route::get('/karyawan/profil', [ProfilController::class, 'showProfil'])->name('karyawan.profil');
+
 
     Route::get('/karyawan/pengajuan-cuti', function () {
         if (auth()->user()->role != 'Karyawan') {
@@ -139,6 +143,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
         }
         return view('hrd.profil');
     })->name('hrd.profil');
+
+    Route::get('/hrd/profil', [ProfilController::class, 'showProfil'])->name('hrd.profil');
 });
 
 // Route untuk manajemen karyawan

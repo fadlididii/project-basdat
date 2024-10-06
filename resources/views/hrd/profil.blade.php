@@ -1,37 +1,43 @@
 @extends('hrd.layouts.app')
 
-@section('title', 'Profil HRD') 
+@section('title', 'Profil HRD')
 
-@section('contents') {{-- Bagian untuk mengisi konten halaman --}}
-    <div class="container py-4"> {{-- Menambahkan padding di atas dan bawah --}}
+@section('contents')
+    <div class="container py-4">
         <h1 class="text-center my-4">Profil Karyawan</h1>
 
-        <div class="card shadow-lg rounded"> {{-- Memberikan shadow dan border radius --}}
-            <div class="card-body">
-                <h5 class="card-title">Informasi Pribadi</h5>
+        @if(isset($nama))
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
 
-                <div class="form-group mb-3"> {{-- Menambahkan margin-bottom --}}
-                    <label class="font-weight-bold">Nama</label> {{-- Membuat teks label lebih tebal --}}
-                    <p class="form-control-static">Nama HRD</p>
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">Nama</label>
+                        <p class="form-control-static">{{ $nama }}</p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">No. Telepon</label>
+                        <p class="form-control-static">{{ $telepon }}</p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">Alamat</label>
+                        <p class="form-control-static">{{ $alamat }}</p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">Tanggal Lahir</label>
+                        <p class="form-control-static">{{ $tanggal_lahir }}</p>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">Jabatan</label>
+                        <p class="form-control-static">{{ $role }}</p>
+                    </div>
                 </div>
-
-                <div class="form-group mb-3">
-                    <label class="font-weight-bold">Email</label>
-                    <p class="form-control-static">email@contoh.com</p>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label class="font-weight-bold">No. Telepon</label>
-                    <p class="form-control-static">081234567890</p>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label class="font-weight-bold">Alamat</label>
-                    <p class="form-control-static">Alamat HRD</p>
-                </div>
-
-                <a href="#" class="btn btn-primary float-right">Edit Profil</a> {{-- Tombol di kanan bawah --}}
             </div>
-        </div>
+        @else
+            <p>Data profil karyawan tidak ditemukan.</p>
+        @endif
     </div>
 @endsection
