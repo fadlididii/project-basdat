@@ -8,16 +8,36 @@
 
     <p>Berikut adalah penilaian kinerja untuk karyawan:</p>
 
-    <form method="POST">
-        @csrf
-        <div class="form-group position-relative">
-            <label>Nama</label>
-            <input type="text" class="form-control" id="nama_karyawan" name="nama" required autocomplete="off">
-            <div id="namaList" class="dropdown-menu" style="display:none; position:absolute; width:100%;"></div>
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
         </div>
+    @endif
+
+    <!-- Pesan Error dari Validasi Server -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <!-- Form untuk Penilaian -->
+    <form method="POST" action="{{ route('hrd.storePenilaian') }}">
+        @csrf
         <div class="form-group">
-            <label>ID Karyawan</label>
-            <input type="text" class="form-control" id="id_karyawan" name="id_karyawan" readonly>
+            <label>Nama Karyawan</label>
+            <select class="form-control" id="nama_karyawan" name="id_karyawan" required>
+                <option value="">Pilih Karyawan</option>
+                @foreach($karyawan as $k)
+                    @if($k->role === 'Karyawan')
+                        <option value="{{ $k->id }}">{{ $k->nama }} (ID: {{ $k->id }})</option>
+                    @endif
+                @endforeach
+            </select>
         </div>
 
         <p>Dengan hasil penilaian kinerja sebagai berikut:</p>
@@ -49,26 +69,16 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $aspek }}</td>
-                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="1"></td>
-                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="2"></td>
-                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="3"></td>
-                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="4"></td>
-                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="5"></td>
+                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="1" required></td>
+                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="2" required></td>
+                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="3" required></td>
+                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="4" required></td>
+                        <td class="text-center"><input type="radio" name="nilai[{{ $index }}]" value="5" required></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <small class="form-text text-muted">Keterangan: (1 = sangat kurang, 2 = kurang, 3 = cukup, 4 = baik, 5 = sangat baik)</small>
-
-        <h5 class="mt-4">II. Catatan Absensi :</h5>
-        <div class="form-group">
-            <label>Jumlah Absensi:</label>
-            <ul>
-                <li>Alpha: <input type="number" name="alpha" min="0" class="form-control d-inline-block w-auto" required></li>
-                <li>Izin: <input type="number" name="izin" min="0" class="form-control d-inline-block w-auto" required></li>
-                <li>Sakit: <input type="number" name="sakit" min="0" class="form-control d-inline-block w-auto" required></li>
-            </ul>
-        </div>
 
         <div class="form-group">
             <label>Komentar</label>
@@ -76,8 +86,31 @@
         </div>
 
         <div class="text-center mt-4 mb-5">
-    <button type="submit" class="btn btn-primary">Simpan Penilaian</button>
-</div>
+            <button type="submit" class="btn btn-primary">Simpan Penilaian</button>
+        </div>
     </form>
 </div>
+
+<!-- Tambahkan script untuk validasi client-side -->
+<script>
+    document.getElementById('penilaianForm').addEventListener('submit', function(event) {
+        // Hitung total penilaian yang diisi
+        let totalFilled = 0;
+
+        // Periksa setiap aspek penilaian (radio buttons) untuk memastikan semuanya diisi
+        @php
+            foreach ($aspek_penilaian as $index => $aspek) {
+                echo "if (document.querySelector('input[name=\"nilai[{$index}]\"]:checked') !== null) {
+                        totalFilled++;
+                      }\n";
+            }
+        @endphp
+
+        // Jika total yang diisi kurang dari 10, cegah submit dan tampilkan pesan
+        if (totalFilled < 10) {
+            event.preventDefault(); // Cegah pengiriman form
+            alert('Harap isi semua 10 aspek penilaian sebelum submit.');
+        }
+    });
+</script>
 @endsection
