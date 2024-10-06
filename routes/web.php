@@ -7,6 +7,7 @@ use App\Http\Controllers\KaryawanAuthController;
 use App\Http\Controllers\KaryawanDashboardController;
 use App\Http\Controllers\HRDDashboardController;
 use App\Http\Controllers\HRDPenggajianController;
+use App\Http\Controllers\CutiController;
 
 
 // Route untuk beranda
@@ -72,6 +73,11 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('karyawan.pengajuan-cuti');
     })->name('karyawan.pengajuan-cuti');
 
+    Route::get('/karyawan/pengajuan-cuti', [CutiController::class, 'create'])->name('karyawan.pengajuan-cuti');
+    Route::post('/karyawan/pengajuan-cuti', [CutiController::class, 'store'])->name('karyawan.store-cuti');
+    Route::get('/karyawan/pengajuan-cuti', [CutiController::class, 'showPengajuanCuti'])->name('karyawan.pengajuan-cuti');
+
+
     Route::get('/karyawan/gaji', function () {
         if (auth()->user()->role != 'Karyawan') {
             return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
@@ -106,6 +112,9 @@ Route::middleware(['auth:karyawan'])->group(function () {
         }
         return view('hrd.persetujuan-cuti');
     })->name('hrd.persetujuan-cuti');
+
+    Route::get('/hrd/persetujuan-cuti', [CutiController::class, 'indexHRD'])->name('hrd.persetujuan-cuti');
+    Route::post('/hrd/persetujuan-cuti/{id}', [CutiController::class, 'update'])->name('hrd.update-cuti');
 
     Route::get('/hrd/penggajian', function () {
         if (auth()->user()->role != 'HRD') {

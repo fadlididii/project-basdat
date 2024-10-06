@@ -4,6 +4,12 @@
 <div class="container py-5">
     <h1 class="text-center mb-4">Absensi Jam Masuk</h1>
 
+    @if(session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Form status absensi -->
     <form id="statusForm" class="mb-4">
         <div class="mb-3">
