@@ -6,6 +6,12 @@
 <div class="container-fluid">
     <h1 class="text-center my-4">Penggajian Karyawan</h1>
 
+    @if(session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <!-- Tabel Penggajian Karyawan -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">

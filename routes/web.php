@@ -9,7 +9,9 @@ use App\Http\Controllers\HRDDashboardController;
 use App\Http\Controllers\HRDPenggajianController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\ProfilController;
-
+use App\Http\Controllers\HRDPerformanceController;
+use App\Models\PenilaianKinerja;
+use App\Models\ManajemenKaryawan;
 
 // Route untuk beranda
 Route::get('/', function () {
@@ -51,13 +53,10 @@ Route::middleware(['auth:karyawan'])->group(function () {
 
     // Route untuk absensi jam masuk
     Route::get('/karyawan/absensi/masuk', [AbsensiController::class, 'showAbsensiMasukForm'])->name('karyawan.absensi.masuk');
-    Route::post('/karyawan/absensi/masuk', [AbsensiController::class, 'storeJamMasuk'])->name('karyawan.absensi.storeJamMasuk');
     Route::post('/upload-absen-masuk', [AbsensiController::class, 'storeJamMasuk'])->name('upload-absen-masuk');
-
 
     // Route untuk absensi jam keluar
     Route::get('/karyawan/absensi/keluar', [AbsensiController::class, 'showAbsensiKeluarForm'])->name('karyawan.absensi.keluar');
-    Route::post('/karyawan/absensi/keluar', [AbsensiController::class, 'storeJamKeluar'])->name('karyawan.absensi.storeJamKeluar');
     Route::post('/upload-absen-keluar', [AbsensiController::class, 'storeJamKeluar'])->name('upload-absen-keluar');
 
     Route::get('/karyawan/profil', function () {
@@ -95,8 +94,13 @@ Route::middleware(['auth:karyawan'])->group(function () {
         if (auth()->user()->role != 'Karyawan') {
             return redirect()->route('hrd.dashboard')->withErrors(['error' => 'Anda tidak memiliki akses sebagai Karyawan']);
         }
-        return view('karyawan.penilaian');
+        $id_karyawan = auth()->user()->id;
+        $penilaian = PenilaianKinerja::where('id_karyawan', $id_karyawan)->latest('created_at')->first(); 
+        return view('karyawan.penilaian', compact('penilaian'));
     })->name('karyawan.penilaian');
+
+    Route::get('/karyawan/penilaian', [HRDPerformanceController::class, 'showPenilaian'])->name('karyawan.showPenilaian');
+
 });
 
 // Route untuk HRD
@@ -136,6 +140,11 @@ Route::middleware(['auth:karyawan'])->group(function () {
         }
         return view('hrd.penilaian_kinerja');
     })->name('hrd.penilaian_kinerja');
+
+    Route::get('/penilaian-karyawan', [HRDPerformanceController::class, 'index'])->name('hrd.penilaian-karyawan');
+    Route::get('/hrd/penilaian-kinerja', [HRDPerformanceController::class, 'createPenilaian'])->name('hrd.penilaian_kinerja');
+    Route::post('/hrd/penilaian-kinerja', [HRDPerformanceController::class, 'storePenilaian'])->name('hrd.storePenilaian');
+    Route::get('/hrd/absensi/{id_karyawan}', [HRDPerformanceController::class, 'getAbsensi'])->name('hrd.getAbsensi');
 
     Route::get('/hrd/profil', function () {
         if (auth()->user()->role != 'HRD') {
