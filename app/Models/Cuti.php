@@ -9,19 +9,21 @@ class Cuti extends Model
 {
     use HasFactory;
 
-    protected $table = 'cuti';
+    protected $table = 'cuti1';
 
+    // Kolom yang dapat diisi melalui form atau input
     protected $fillable = [
         'id_karyawan',
         'tanggal_mulai',
         'tanggal_selesai',
-        'jenis'
+        'jenis_cuti',
         'keterangan',
-        'persetujuan',
+        'status',
     ];
 
+    // Relasi dengan model Karyawan (Setiap pengajuan cuti dimiliki oleh satu karyawan)
     public function karyawan()
     {
-        return $this->belongsTo(Karyawan::class, 'id_karyawan');
+        return $this->belongsTo(ManajemenKaryawan::class, 'id_karyawan', 'id');
     }
 }
