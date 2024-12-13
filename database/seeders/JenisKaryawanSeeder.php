@@ -8,10 +8,14 @@ use App\Models\JenisKaryawan;
 class JenisKaryawanSeeder extends Seeder
 {
     public function run(): void
-    {
-        JenisKaryawan::insert([
-            ['nama_jenis' => 'Tetap'],
-            ['nama_jenis' => 'Magang'],
-        ]);
+    {JenisKaryawan::firstOrCreate(['nama_jenis' => 'Tetap'], [
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    JenisKaryawan::firstOrCreate(['nama_jenis' => 'Magang'], [
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
     }
 }
