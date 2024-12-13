@@ -34,4 +34,8 @@ class Karyawan extends Model
     {
         return $this->hasMany(Absensi::class);
     }
+    public function jenisKaryawan()
+{
+    return $this->belongsTo(JenisKaryawan::class, 'jenis_karyawan_id');
+}
 }

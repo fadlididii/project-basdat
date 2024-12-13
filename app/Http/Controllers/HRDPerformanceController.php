@@ -19,25 +19,68 @@ class HRDPerformanceController extends Controller
 
     // Fungsi untuk menyimpan penilaian karyawan
     public function storePenilaian(Request $request)
-    {
-        // Validasi data yang masuk
-        $validated = $request->validate([
-            'id_karyawan' => 'required|exists:karyawan,id', // Validasi ID karyawan harus ada di tabel karyawan
-            'nilai' => 'required|array|size:10', // Pastikan nilai dikirim sebagai array
-            'nilai.*' => 'required|integer|between:1,5', // Pastikan setiap aspek memiliki nilai yang valid (1 sampai 5)
-            'komentar_hard' => 'nullable|string',
-        ]);
+{
+    // Validasi data
+    $validated = $request->validate([
+        'id_karyawan' => 'required|exists:karyawan,id',
+        'nilai' => 'required|array|size:10',
+        'nilai.*' => 'required|integer|between:1,5',
+        'komentar_hard' => 'nullable|string',
+    ]);
 
-        // Simpan data penilaian ke tabel penilaian
-        PenilaianKinerja::create([
-            'id_karyawan' => $request->id_karyawan,
-            'penilaian' => json_encode($request->nilai), // Menyimpan nilai dalam bentuk JSON
-            'komentar_hard' => $request->komentar_hard,
-            'tanggal_penilaian' => now(),
-        ]);
+    $penilaian = array_map('intval', $validated['nilai']);
+    $totalNilai = array_sum($penilaian);
 
-        return redirect()->back()->with('success', 'Penilaian berhasil disimpan!');
+    // Simpan data penilaian ke tabel
+    PenilaianKinerja::create([
+        'id_karyawan' => $validated['id_karyawan'],
+        'penilaian' => json_encode($penilaian), // Simpan sebagai JSON
+        'total_nilai' => $totalNilai, // Simpan total nilai
+        'komentar_hard' => $validated['komentar_hard'],
+        'tanggal_penilaian' => now(),
+    ]);
+
+    return redirect()->back()->with('success', 'Penilaian berhasil disimpan!');
+}
+
+    
+    public function calculateTotalPenilaian()
+{
+    // Ambil semua data penilaian
+    $penilaianData = PenilaianKinerja::all();
+
+    $result = [];
+    foreach ($penilaianData as $data) {
+        $result[] = [
+            'id_penilaian' => $data->id,
+            'id_karyawan' => $data->id_karyawan,
+            'total_penilaian' => $data->calculateTotalPenilaian(), // Panggil fungsi dari model
+        ];
     }
+
+    // Kirimkan ke view
+    return view('hrd.total_penilaian', compact('result'));
+
+}
+public function showDashboard()
+{
+    // Ambil semua data penilaian
+    $penilaianData = PenilaianKinerja::with('karyawan')->get();
+
+    // Hitung total nilai untuk setiap penilaian
+    $data = $penilaianData->map(function ($item) {
+        return [
+            'id_penilaian' => $item->id,
+            'id_karyawan' => $item->id_karyawan,
+            'nama_karyawan' => $item->karyawan->nama ?? 'Tidak Diketahui',
+            'total_penilaian' => $item->calculateTotalPenilaian(),
+            'tanggal_penilaian' => $item->tanggal_penilaian,
+        ];
+    });
+
+    // Kirimkan data ke view dashboard
+    return view('hrd.dashboard', ['penilaian' => $data]);
+}
 
     public function showPenilaian()
     {

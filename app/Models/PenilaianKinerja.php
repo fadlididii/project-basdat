@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PenilaianKinerja;
 
 class PenilaianKinerja extends Model
 {
     use HasFactory;
 
-    // Pastikan model ini mengacu pada tabel 'penilaian'
     protected $table = 'penilaian';
 
     protected $fillable = [
@@ -18,11 +16,21 @@ class PenilaianKinerja extends Model
         'penilaian',
         'komentar_hard',
         'tanggal_penilaian',
+        'total_nilai', // Tambahkan kolom total_nilai
+    ];
+
+    protected $casts = [
+        'penilaian' => 'array', // Ubah JSON ke array saat diakses
     ];
 
     public function karyawan()
     {
         return $this->belongsTo(ManajemenKaryawan::class, 'id_karyawan');
     }
-}
 
+    // Fungsi untuk menghitung total nilai
+    public function calculateTotalPenilaian()
+    {
+        return array_sum($this->penilaian);
+    }
+}

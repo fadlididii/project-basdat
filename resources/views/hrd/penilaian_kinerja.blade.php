@@ -8,6 +8,7 @@
 
     <p>Berikut adalah penilaian kinerja untuk karyawan:</p>
 
+    <!-- Tampilkan pesan sukses -->
     @if (session('success'))
         <div class="alert alert-success text-center">
             {{ session('success') }}
@@ -26,7 +27,7 @@
     @endif
 
     <!-- Form untuk Penilaian -->
-    <form method="POST" action="{{ route('hrd.storePenilaian') }}">
+    <form method="POST" action="{{ route('hrd.storePenilaian') }}" id="penilaianForm">
         @csrf
         <div class="form-group">
             <label>Nama Karyawan</label>
@@ -46,16 +47,16 @@
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th rowspan="2" style="vertical-align: middle; text-align: center;">No</th>
-                    <th rowspan="2" style="vertical-align: middle; text-align: center;">Aspek Penilaian</th>
-                    <th colspan="5" style="text-align: center;">Nilai</th>
+                    <th rowspan="2" class="text-center">No</th>
+                    <th rowspan="2" class="text-center">Aspek Penilaian</th>
+                    <th colspan="5" class="text-center">Nilai</th>
                 </tr>
                 <tr>
-                    <th style="text-align: center;">SK</th>
-                    <th style="text-align: center;">K</th>
-                    <th style="text-align: center;">C</th>
-                    <th style="text-align: center;">B</th>
-                    <th style="text-align: center;">SB</th>
+                    <th class="text-center">SK</th>
+                    <th class="text-center">K</th>
+                    <th class="text-center">C</th>
+                    <th class="text-center">B</th>
+                    <th class="text-center">SB</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,32 +86,38 @@
             <textarea class="form-control" name="komentar_hard" rows="3" placeholder="Masukkan komentar atau catatan tentang karyawan..."></textarea>
         </div>
 
+        <!-- Total nilai yang dihitung secara dinamis -->
+        <div class="form-group">
+            <label>Total Nilai</label>
+            <input type="text" class="form-control" id="total_nilai" readonly>
+        </div>
+
         <div class="text-center mt-4 mb-5">
             <button type="submit" class="btn btn-primary">Simpan Penilaian</button>
         </div>
     </form>
 </div>
 
-<!-- Tambahkan script untuk validasi client-side -->
+<!-- Script untuk validasi client-side dan perhitungan total nilai -->
 <script>
     document.getElementById('penilaianForm').addEventListener('submit', function(event) {
-        // Hitung total penilaian yang diisi
-        let totalFilled = 0;
-
-        // Periksa setiap aspek penilaian (radio buttons) untuk memastikan semuanya diisi
-        @php
-            foreach ($aspek_penilaian as $index => $aspek) {
-                echo "if (document.querySelector('input[name=\"nilai[{$index}]\"]:checked') !== null) {
-                        totalFilled++;
-                      }\n";
-            }
-        @endphp
-
-        // Jika total yang diisi kurang dari 10, cegah submit dan tampilkan pesan
+        const totalFilled = document.querySelectorAll('input[type="radio"]:checked').length;
         if (totalFilled < 10) {
-            event.preventDefault(); // Cegah pengiriman form
+            event.preventDefault();
             alert('Harap isi semua 10 aspek penilaian sebelum submit.');
         }
+    });
+
+    // Hitung total nilai secara dinamis
+    const radios = document.querySelectorAll('input[type="radio"]');
+    const totalNilaiField = document.getElementById('total_nilai');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            const selectedValues = Array.from(document.querySelectorAll('input[type="radio"]:checked')).map(input => parseInt(input.value));
+            const totalNilai = selectedValues.reduce((acc, val) => acc + val, 0);
+            totalNilaiField.value = totalNilai;
+        });
     });
 </script>
 @endsection
