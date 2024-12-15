@@ -10,6 +10,12 @@ use App\Http\Controllers\HRDPenggajianController;
 use App\Http\Controllers\CutiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\HRDPerformanceController;
+use App\Http\Controllers\OLAPController;
+use App\Models\FaktaGaji;
+use App\Models\FaktaCuti;
+use App\Models\FaktaPerforma;
+use App\Models\DimensiWaktu;
+use App\Models\DimKaryawan;
 use App\Models\PenilaianKinerja;
 use App\Models\ManajemenKaryawan;
 
@@ -112,6 +118,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
         return view('hrd.dashboard');
     })->name('hrd.dashboard');
 
+    Route::get('hrd/dashboard', [OLAPController::class, 'index'])->name('hrd.dashboard');
+
     Route::get('/hrd/absensi', [AbsensiController::class, 'indexHRD'])->name('hrd.absensi');
 
     Route::get('/hrd/persetujuan-cuti', function () {
@@ -165,3 +173,5 @@ Route::middleware(['auth:karyawan'])->group(function () {
 Route::fallback(function () {
     return redirect()->route('login');
 });
+
+
